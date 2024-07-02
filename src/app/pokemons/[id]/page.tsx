@@ -87,7 +87,7 @@ export async function DetailPage({ params }: { params: { id: string } }) {
         </div>
         <Link
           href="/"
-          className="text-white text-3xl bg-[rgba(255,0,0,0.73)] rounded-lg p-2 mb-6"
+          className="text-white text-3xl bg-[rgba(255,0,0,0.73)] rounded-lg p-2 mb-6 transition-all duration-100 hover:bg-[rgba(255,0,0,0.95)] "
         >
           뒤로가기
         </Link>
