@@ -1,11 +1,9 @@
 import { PokemonList } from "@/components/PokemonList";
 
-export default function Home() {
+export default function HomePage() {
   return (
-    <div className="bg-black flex flex-col items-center">
-      <h1 className="text-white text-3xl font-bold text-center my-2">
-        포켓몬 도감
-      </h1>
+    <div className="flex flex-col items-center font-dohyeon">
+      <h1 className="text-white text-5xl text-center my-8">포켓몬 도감</h1>
       <PokemonList />
     </div>
   );
