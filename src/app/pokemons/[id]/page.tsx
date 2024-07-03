@@ -2,10 +2,18 @@ import axios from "axios";
 import { Pokemon } from "@/types/data";
 import Image from "next/image";
 import { formatHeight, formatWeight } from "@/utils/format";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { ReactElement } from "react";
 
-export async function DetailPage({ params }: { params: { id: string } }) {
+interface DetailPageProps {
+  params: {
+    id: string;
+  };
+}
+
+export default async function DetailPage({
+  params,
+}: DetailPageProps): Promise<ReactElement> {
   const { id } = params;
 
   try {
@@ -16,7 +24,7 @@ export async function DetailPage({ params }: { params: { id: string } }) {
     console.log(pokemonData);
 
     return (
-      <div className="w-[60%] flex flex-col items-center mx-auto bg-amber-300 rounded-xl font-dohyeon my-10">
+      <div className="w-[60%] flex flex-col items-center mx-auto bg-amber-300 rounded-xl my-10">
         <div className="w-full flex flex-col p-4 items-center justify-center bg-[rgba(255,0,0,0.73)] rounded-xl">
           <h1 className="text-5xl text-white">{pokemonData.korean_name}</h1>
           <p className="text-2xl text-black">No. {pokemonData.id}</p>
@@ -98,5 +106,3 @@ export async function DetailPage({ params }: { params: { id: string } }) {
     return <div>Error fetching Pokemon Detail data</div>;
   }
 }
-
-export default DetailPage;
