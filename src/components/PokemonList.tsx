@@ -5,7 +5,6 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import axios from "axios";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { connected } from "process";
 import React from "react";
 import { useInView } from "react-intersection-observer";
 
@@ -48,7 +47,6 @@ export function PokemonList() {
 
   if (isPending) return <div>로딩 중..</div>;
   if (isError) return <div>포켓몬 리스트 가져오는 중 에러발생</div>;
-  console.log(pokemons);
 
   return (
     <div className="w-[80%] flex flex-col justify-center items-center mx-auto">

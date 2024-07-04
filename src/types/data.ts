@@ -1,6 +1,3 @@
-import { AxiosRequestConfig, AxiosResponseHeaders } from "axios";
-import { ClientRequest } from "http";
-
 export type Pokemon = {
   id: number;
   name: string;

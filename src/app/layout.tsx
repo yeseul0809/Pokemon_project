@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import QueryProvider from "./provider";
+import QueryProvider from "./providers/provider";
 
 export const metadata: Metadata = {
   title: "Pokemons project",
-  description: "next app first project",
+  description: "나만의 포켓몬 도감",
   icons: {
     icon: "/favicon.ico",
   },
