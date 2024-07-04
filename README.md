@@ -30,6 +30,22 @@
 <br>
 
 ## ✔️주요기능
+- 메인페이지
+<img src="https://github.com/yeseul0809/Pokemon_project/assets/166012944/5a74b7e0-d2a1-4863-b12c-3e7567bc0ce7" width="800" height="450">
+
+<br>
+<br>
+
+- 상세페이지
+<img src="https://github.com/yeseul0809/Pokemon_project/assets/166012944/9cf7b177-b45d-4973-ac70-46d8c5d81a9d" width="800" height="450">
+<img src="https://github.com/yeseul0809/Pokemon_project/assets/166012944/c1cedab9-26c1-4b81-b6a2-fcd005ab3b0c"  width="800" height="450">
+
+<br>
+<br>
+
+- 무한스크롤
+  
+![포켓몬도감 무한스크롤](https://github.com/yeseul0809/Pokemon_project/assets/166012944/968a47c8-5cd9-435f-a8d5-fc932072433d)
 
 <br>
 
