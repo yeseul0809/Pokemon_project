@@ -18,7 +18,7 @@ export default async function DetailPage({
 
   try {
     const response = await axios.get(
-      `http://localhost:3000/api/pokemons/${id}`
+      `${process.env.NEXT_PUBLIC_MY_HOST}/api/pokemons/${id}`
     );
 
     const pokemonData: Pokemon = response.data;
