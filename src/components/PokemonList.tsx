@@ -1,32 +1,36 @@
 "use client";
 
 import { Pokemon } from "@/types/data";
+import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 export function PokemonList() {
-  const [pokemons, setPokemons] = useState<Pokemon[]>([]);
   const router = useRouter();
 
-  useEffect(() => {
-    const fetchPokemons = async () => {
-      try {
-        const response = await axios.get("/api/pokemons");
-        console.log(response.data);
-        setPokemons(response.data);
-      } catch (error) {
-        console.error("포켓몬 리스트 가져오는 중에 에러 발생", error);
-      }
-    };
-    fetchPokemons();
-  }, []);
+  const fetchPokemons = async () => {
+    const response = await axios.get("/api/pokemons");
+    return response.data;
+  };
+
+  const {
+    data: pokemons,
+    isError,
+    isPending,
+  } = useQuery({
+    queryKey: ["pokemons"],
+    queryFn: fetchPokemons,
+  });
+
+  if (isPending) return <div>로딩 중..</div>;
+  if (isError) return <div>포켓몬 리스트 가져오는 중 에러발생</div>;
 
   return (
     <div className="w-[80%] flex flex-col justify-center items-center mx-auto">
       <div className="grid grid-cols-6 gap-4 w-full mx-4 justify-items-center">
-        {pokemons.map((pokemon) => (
+        {pokemons.map((pokemon: Pokemon) => (
           <div
             onClick={() => {
               router.push(`/pokemons/${pokemon.id}`);
