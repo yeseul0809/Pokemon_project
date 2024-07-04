@@ -1,31 +1,58 @@
 "use client";
 
 import { Pokemon } from "@/types/data";
-import { useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery } from "@tanstack/react-query";
 import axios from "axios";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { connected } from "process";
 import React from "react";
+import { useInView } from "react-intersection-observer";
+
+const PAGE_SIZE = 20;
 
 export function PokemonList() {
   const router = useRouter();
 
-  const fetchPokemons = async () => {
-    const response = await axios.get("/api/pokemons");
-    return response.data;
+  const fetchPokemons = async ({ pageParam = 1 }) => {
+    try {
+      const response = await axios.get(`/api/pokemons?page=${pageParam}`);
+      return response.data;
+    } catch (error) {
+      return null;
+    }
   };
 
   const {
     data: pokemons,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
     isError,
     isPending,
-  } = useQuery({
+  } = useInfiniteQuery({
     queryKey: ["pokemons"],
     queryFn: fetchPokemons,
+    initialPageParam: 1,
+    getNextPageParam: (lastPage, allPages, lastPageParam) => {
+      const nextPage = lastPageParam + 1;
+      return lastPage.length === PAGE_SIZE ? nextPage : undefined;
+    },
+    select: ({ pages }) => pages.flat(), // pages 배열의 평탄화
+  });
+
+  const { ref } = useInView({
+    threshold: 1,
+    onChange: (inView) => {
+      if (inView && hasNextPage && !isFetchingNextPage) {
+        fetchNextPage();
+      }
+    },
   });
 
   if (isPending) return <div>로딩 중..</div>;
   if (isError) return <div>포켓몬 리스트 가져오는 중 에러발생</div>;
+  console.log(pokemons);
 
   return (
     <div className="w-[80%] flex flex-col justify-center items-center mx-auto">
@@ -51,6 +78,8 @@ export function PokemonList() {
             <p className="text-white text-lg mb-2">도감번호 : {pokemon.id}</p>
           </div>
         ))}
+        {/* h-50 으로 느리게 반응하도록 설정 */}
+        <div ref={ref} className="h-50 w-full"></div>
       </div>
     </div>
   );
