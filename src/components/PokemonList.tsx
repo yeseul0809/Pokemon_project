@@ -15,12 +15,8 @@ export function PokemonList() {
   const router = useRouter();
 
   const fetchPokemons = async ({ pageParam = 1 }) => {
-    try {
-      const response = await axios.get(`/api/pokemons?page=${pageParam}`);
-      return response.data;
-    } catch (error) {
-      return null;
-    }
+    const response = await axios.get(`/api/pokemons?page=${pageParam}`);
+    return response.data;
   };
 
   const {

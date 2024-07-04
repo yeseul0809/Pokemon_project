@@ -9,18 +9,21 @@ export const GET = async (request: Request) => {
   const page = parseInt(searchParams.get("page") || "1");
   const offset = (page - 1) * PAGE_SIZE;
 
+  const isNotNull = <T>(value: T | null): value is T => value !== null;
+
   try {
     const allPokemonPromises = Array.from({ length: PAGE_SIZE }, (_, index) => {
       const id = index + 1 + offset;
-      if (id > TOTAL_POKEMON) return null; // If id exceeds the total number of Pokémon, return null
+      if (id > TOTAL_POKEMON) return null;
 
       return Promise.all([
         axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`),
         axios.get(`https://pokeapi.co/api/v2/pokemon-species/${id}`),
       ]);
-    }).filter(Boolean); // Remove nulls
+    }).filter(isNotNull);
 
     const allPokemonResponses = await Promise.all(allPokemonPromises);
+    if (allPokemonResponses === null) return;
 
     const allPokemonData = allPokemonResponses.map(
       ([response, speciesResponse]) => {
