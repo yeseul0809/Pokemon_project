@@ -32,7 +32,7 @@ export default async function DetailPage({
         </div>
         <div className="flex flex-row items-center mt-4">
           <Image
-            src={pokemonData.sprites.front_default}
+            src={pokemonData.sprites.other["official-artwork"].front_default}
             alt={pokemonData.korean_name}
             width={400}
             height={400}
