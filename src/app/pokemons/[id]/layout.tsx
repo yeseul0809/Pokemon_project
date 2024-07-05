@@ -9,9 +9,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = params;
 
   // fetch data
-  const data = await fetch(`http://localhost:3000/api/pokemons/${id}`).then(
-    (res) => res.json()
-  );
+  const data = await fetch(
+    `${process.env.NEXT_PUBLIC_MY_HOST}/api/pokemons/${id}`
+  ).then((res) => res.json());
 
   return {
     title: data.korean_name,
